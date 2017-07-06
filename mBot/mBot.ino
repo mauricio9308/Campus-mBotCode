@@ -66,9 +66,9 @@ void play( ){
     
     rgbled_7.setColor(1,0, 255, 213);
     rgbled_7.show();
-    move( MOVE_LEFT, SLOW_SPEED );
-    move( MOVE_RIGHT, SLOW_SPEED );
-    move( MOVE_STOP, SLOW_SPEED );
+    handle( MOVE_LEFT, SLOW_SPEED );
+    handle( MOVE_RIGHT, SLOW_SPEED );
+    handle( MOVE_STOP, SLOW_SPEED );
  
     //end of first bit
     
@@ -84,9 +84,9 @@ void play( ){
     
     rgbled_7.setColor(1,55, 98, 100);
     rgbled_7.show();
-    move( MOVE_FORWARD, SLOW_SPEED );
-    move( MOVE_REVERSE, SLOW_SPEED );
-    move( MOVE_STOP, SLOW_SPEED );
+    handle( MOVE_FORWARD, SLOW_SPEED );
+    handle( MOVE_REVERSE, SLOW_SPEED );
+    handle( MOVE_STOP, SLOW_SPEED );
  
     //end of second bit...
  
@@ -102,9 +102,9 @@ void play( ){
 
     rgbled_7.setColor(1,0, 255,0);
     rgbled_7.show();
-    move( MOVE_REVERSE, SLOW_SPEED );
-    move( MOVE_FORWARD, SLOW_SPEED );
-    move( MOVE_STOP, SLOW_SPEED );
+    handle( MOVE_REVERSE, SLOW_SPEED );
+    handle( MOVE_FORWARD, SLOW_SPEED );
+    handle( MOVE_STOP, SLOW_SPEED );
  
     buzzer.tone(aS, 250);
     buzzer.tone(dSH, 400);
@@ -116,9 +116,9 @@ void play( ){
 
     rgbled_7.setColor(1,0,0,255);
     rgbled_7.show();
-    move( MOVE_RIGHT, SLOW_SPEED );
-    move( MOVE_LEFT, SLOW_SPEED );
-    move( MOVE_STOP, SLOW_SPEED );
+    handle( MOVE_RIGHT, SLOW_SPEED );
+    handle( MOVE_LEFT, SLOW_SPEED );
+    handle( MOVE_STOP, SLOW_SPEED );
  
     buzzer.tone(f, 125);
     buzzer.tone(gS, 500);
@@ -131,9 +131,9 @@ void play( ){
 
     rgbled_7.setColor(1,255,0,0);
     rgbled_7.show();
-    move( MOVE_LEFT, SLOW_SPEED );
-    move( MOVE_RIGHT, SLOW_SPEED );
-    move( MOVE_STOP, SLOW_SPEED );
+    handle( MOVE_LEFT, SLOW_SPEED );
+    handle( MOVE_RIGHT, SLOW_SPEED );
+    handle( MOVE_STOP, SLOW_SPEED );
     
     //end of third bit... (Though it doesn't play well)
     //let's repeat it
@@ -150,9 +150,9 @@ void play( ){
 
     rgbled_7.setColor(1,0,255,0);
     rgbled_7.show();
-    move( MOVE_RIGHT, SLOW_SPEED );
-    move( MOVE_LEFT, SLOW_SPEED );
-    move( MOVE_STOP, SLOW_SPEED );
+    handle( MOVE_RIGHT, SLOW_SPEED );
+    handle( MOVE_LEFT, SLOW_SPEED );
+    handle( MOVE_STOP, SLOW_SPEED );
 
     buzzer.tone(aS, 250);
     buzzer.tone(dSH, 400);
@@ -164,9 +164,9 @@ void play( ){
 
     rgbled_7.setColor(1,0,0,255);
     rgbled_7.show();
-    move( MOVE_FORWARD, SLOW_SPEED );
-    move( MOVE_REVERSE, SLOW_SPEED );
-    move( MOVE_STOP, SLOW_SPEED );
+    handle( MOVE_FORWARD, SLOW_SPEED );
+    handle( MOVE_REVERSE, SLOW_SPEED );
+    handle( MOVE_STOP, SLOW_SPEED );
      
     buzzer.tone(f, 250);
     buzzer.tone(gS, 500);
@@ -180,18 +180,18 @@ void play( ){
 
     rgbled_7.setColor(1,255,0,0);
     rgbled_7.show();
-    move( MOVE_LEFT, SLOW_SPEED );
-    move( MOVE_RIGHT, SLOW_SPEED );
-    move( MOVE_REVERSE, DEFAULT_SPEED );
-    move( MOVE_FORWARD, DEFAULT_SPEED );
-    move( MOVE_STOP, SLOW_SPEED );    
+    handle( MOVE_LEFT, SLOW_SPEED );
+    handle( MOVE_RIGHT, SLOW_SPEED );
+    handle( MOVE_REVERSE, DEFAULT_SPEED );
+    handle( MOVE_FORWARD, DEFAULT_SPEED );
+    handle( MOVE_STOP, SLOW_SPEED );    
     isPlayingMusic = 0;
 }
 
-void move(int direction, int speed){
+void handle(int command, int speed){
       int leftSpeed;
       int rightSpeed;
-      switch( direction ){
+      switch( command ){
         case MOVE_FORWARD:
           leftSpeed = speed;
           rightSpeed = speed;
@@ -261,7 +261,7 @@ void handleInput() {
         rgbled_7.setColor(1,0,0,255);
         rgbled_7.show();
 
-        move( receivedCommand, DEFAULT_SPEED );
+        handle( receivedCommand, DEFAULT_SPEED );
     }else{
         rgbled_7.setColor(1,255,0,0);
         rgbled_7.show();
