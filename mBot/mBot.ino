@@ -8,7 +8,8 @@
 #define MOVE_RIGHT 3
 #define MOVE_REVERSE 4
 #define MOVE_DANCE 7
-#define MOVE_STOP 10
+#define MOVE_STAR_WARS 8
+#define MOVE_STOP 6
 
 #define SLOW_SPEED 100
 #define DEFAULT_SPEED 200
@@ -34,12 +35,14 @@
 #define gSH 830
 #define aH 880
 
-
+// Variable declaration
 MeDCMotor motor_9(9);
 MeDCMotor motor_10(10);    
 MeRGBLed rgbled_7(7, 7==7?2:4);
 MeBuzzer buzzer;
 int isPlayingMusic = 0;
+int receivedCommand;
+boolean newData = false;
 
 /*
 * Helper method for the handling of the 
@@ -49,10 +52,30 @@ void updateSpeed(int leftSpeed, int rightSpeed){
       motor_10.run((10)==M1?-(rightSpeed):(rightSpeed));
 }
 
+void dance(){
+    rgbled_7.setColor(1,0, 255, 213);
+    rgbled_7.show();
+    handle( MOVE_LEFT, SLOW_SPEED );
+    _delay(1);
+    handle( MOVE_RIGHT, SLOW_SPEED );
+    _delay(1);
+    handle( MOVE_LEFT, SLOW_SPEED );
+    _delay(1);
+    handle( MOVE_RIGHT, SLOW_SPEED );
+    _delay(1);
+    handle( MOVE_FORWARD, SLOW_SPEED );
+    _delay(1);
+    handle( MOVE_REVERSE, SLOW_SPEED );
+    _delay(1);
+    handle( MOVE_STOP, SLOW_SPEED );
+    rgbled_7.setColor(1,255, 0, 255);
+    rgbled_7.show();
+}
+
 /**
 * Sample music playing of the Imperial march
 */
-void play( ){
+void starWars(){
     isPlayingMusic = 1;
     buzzer.tone(a, 500);
     buzzer.tone(a, 500);
@@ -217,7 +240,14 @@ void handle(int command, int speed){
           rightSpeed = speed;
           break;
         case MOVE_DANCE:
-          play();
+          dance();
+          break;
+        case MOVE_STAR_WARS:
+          starWars();
+          break;
+        case MOVE_STOP:
+          leftSpeed = 0;
+          rightSpeed = 0;
           break;
         default:
           leftSpeed = 0;
@@ -227,8 +257,6 @@ void handle(int command, int speed){
       updateSpeed(leftSpeed, rightSpeed);
 }
 
-int receivedCommand;
-boolean newData = false;
 void setup() {
     Serial.begin(115200);
     Serial.println("mBot waiting for instructions");
